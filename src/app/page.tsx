@@ -1,22 +1,34 @@
 'use client'
 import { useState, useEffect } from "react";
 
-
 export default function Main(){
 
-  const [tplData,setTplData] = useState<null>(null);
+  const [tplData,setTplData] = useState<Array<{
+    id:string,
+    provider:string,
+    online:boolean,
+    lat:number,
+    lon:number,
+    line:string
+  }>>([]);
 
   useEffect(()=>{
     const interval = globalThis.setInterval(async ()=>{
       const fetchData = await fetch("/api/getTplData",{
         method:"GET"
       });
-    },2000);
+
+      const {buses} = await fetchData.json();
+
+      setTplData(buses);
+    },5000);
 
     return () => {
       clearInterval(interval);
     }
   },[])
 
-  return (<div>Main</div>)
+  console.log(tplData)
+
+  return (<div>MAIN</div>)
 }
