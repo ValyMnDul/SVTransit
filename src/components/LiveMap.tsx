@@ -34,30 +34,42 @@ export default function LiveMap({buses}:{buses:Bus[]}) {
     : [];
 
     return(
-        <MapContainer
-        center={center}
-        zoom={13}
-        style={{height:"100%",width:"100%"}}
-        >
-            <TileLayer
+        <div style={{ height: "100vh", width: "100%" }}>
+            <MapContainer
+            center={center}
+            zoom={13}
+            style={{height:"100%",width:"100%"}}
+            >
+                <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution="&copy; OpenStreetMap contributors"
-            />
+                />
 
-            {buses.map((bus)=>(
-                <Marker
-                key={bus.id}
-                position={[bus.lat,bus.lon]}
-                icon={icon}
-                >
-                    <Popup>
-                        <div>
-                            <div><b>#{bus.id}</b> {bus.line ? `— linia ${bus.line}` : ""}</div>
-                        </div>
-                    </Popup>
-                </Marker>
-            ))}
+                {validBuses.map((bus)=>(
+                    <Marker
+                    key={`${bus.provider}-${bus.id}`}
+                    position={[Number(bus.lat), Number(bus.lon)]}
+                    icon={icon}
+                    >
+                        <Popup>
+                            <div>
+                                <div>
+                                    <b>#{bus.id}</b> — {bus.provider}
+                                </div>
 
-        </MapContainer>
+                                <div>Line: {bus.line}</div>
+
+                                <div>Online: {bus.online ? "Yes" : "No"}</div>
+
+                                <div style={{ opacity: 0.7 }}>
+                                    {Number(bus.lat).toFixed(5)}, {Number(bus.lon).toFixed(5)}
+                                </div>
+                            </div>
+                        </Popup>
+                    </Marker>
+                ))}
+
+            </MapContainer>
+        </div>
     )
 }
