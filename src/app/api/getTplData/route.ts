@@ -1,13 +1,13 @@
 import { NextResponse } from "next/server"; 
 
-type ThorebBus = {
+interface ThorebBus {
   "1": string;
   "2": string;
   "3": string;
   "4": string;
 };
 
-type KarsanBus = {
+interface KarsanBus {
     contact:string,
     journey:string,
     lat:string,

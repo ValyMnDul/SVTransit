@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect } from "react";
+import LiveMap from "@/components/LiveMap";
 
 export default function Main(){
 
@@ -30,5 +31,7 @@ export default function Main(){
 
   console.log(tplData)
 
-  return (<div>MAIN</div>)
+  return (
+    <LiveMap buses={tplData}/>
+  );
 }
