@@ -1,15 +1,7 @@
 'use client'
 
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet"
-import L from "leaflet";
-
-const icon = new L.Icon({
-  iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
-  iconRetinaUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
-  shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
-  iconSize: [25, 41],
-  iconAnchor: [12, 41]
-});
+import L from "leaflet"
 
 type Bus = {
   id: string;
@@ -20,10 +12,19 @@ type Bus = {
   line: string;
 };
 
-export default function LiveMap({buses}:{buses:Bus[]}) {
-    const center:[number,number]=[47.651,26.255];
- 
-    const validBuses = Array.isArray(buses)
+const icon = new L.Icon({
+  iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
+  iconRetinaUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
+  shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+  iconSize: [25, 41],
+  iconAnchor: [12, 41]
+});
+
+export default function Map({ buses }: { buses: Bus[] }) {
+
+  const center:[number,number] = [47.651, 26.255];
+
+  const validBuses = Array.isArray(buses)
     ? buses.filter(
         (b) =>
           b &&
@@ -33,43 +34,39 @@ export default function LiveMap({buses}:{buses:Bus[]}) {
       )
     : [];
 
-    return(
-        <div style={{ height: "100vh", width: "100%" }}>
-            <MapContainer
-            center={center}
-            zoom={13}
-            style={{height:"100%",width:"100%"}}
-            >
-                <TileLayer
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                attribution="&copy; OpenStreetMap contributors"
-                />
+  return (
+    <div style={{ height: "100vh", width: "100%" }}>
+      <MapContainer center={center} zoom={13} style={{height:"100%", width:"100%"}}>
 
-                {validBuses.map((bus)=>(
-                    <Marker
-                    key={`${bus.provider}-${bus.id}`}
-                    position={[Number(bus.lat), Number(bus.lon)]}
-                    icon={icon}
-                    >
-                        <Popup>
-                            <div>
-                                <div>
-                                    <b>#{bus.id}</b> — {bus.provider}
-                                </div>
+        <TileLayer
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution="&copy; OpenStreetMap contributors"
+        />
 
-                                <div>Line: {bus.line}</div>
+        {validBuses.map((bus)=>(
+          <Marker
+            key={`${bus.provider}-${bus.id}`}
+            position={[Number(bus.lat), Number(bus.lon)]}
+            icon={icon}
+          >
+            <Popup>
+              <div>
+                <div>
+                  <b>#{bus.id}</b> — {bus.provider}
+                </div>
 
-                                <div>Online: {bus.online ? "Yes" : "No"}</div>
+                <div>Line: {bus.line}</div>
+                <div>Online: {bus.online ? "Yes" : "No"}</div>
 
-                                <div style={{ opacity: 0.7 }}>
-                                    {Number(bus.lat).toFixed(5)}, {Number(bus.lon).toFixed(5)}
-                                </div>
-                            </div>
-                        </Popup>
-                    </Marker>
-                ))}
+                <div style={{ opacity: 0.7 }}>
+                  {Number(bus.lat).toFixed(5)}, {Number(bus.lon).toFixed(5)}
+                </div>
+              </div>
+            </Popup>
+          </Marker>
+        ))}
 
-            </MapContainer>
-        </div>
-    )
+      </MapContainer>
+    </div>
+  )
 }
