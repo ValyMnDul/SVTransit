@@ -26,10 +26,4 @@ The project displays buses on an interactive map using live data retrieved from 
 3. Buses are displayed as markers on a map of Suceava.
 4. Data refreshes automatically every **5 seconds**.
 
-## Running locally
-
-```bash
-npm install
-npm run dev
-``` 
-Open [http://localhost:3000](http://localhost:3000) to view the app in the browser.
+### Made for HackClub the Game event
