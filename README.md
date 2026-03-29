@@ -11,13 +11,6 @@ The project displays buses on an interactive map using live data retrieved from 
 - Automatic data refresh every 5 seconds
 - Bus details (ID, provider, line, online status)
 
-## Tech Stack
-
-- Next.js
-- React
-- TypeScript
-- React-Leaflet
-- OpenStreetMap
 
 ## How it works
 
@@ -25,5 +18,13 @@ The project displays buses on an interactive map using live data retrieved from 
 2. The API returns the current list of buses with coordinates.
 3. Buses are displayed as markers on a map of Suceava.
 4. Data refreshes automatically every **5 seconds**.
+
+## Contribute
+
+Feel free to open an issue or submit a pull request to contribute or suggest features
+
+## License
+
+This project is licensed under the [MIT LICENSE](LICENSE.md)
 
 ### Made for HackClub the Game event
